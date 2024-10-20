@@ -54,13 +54,13 @@ RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
     && apt-get -q update \
     && apt-get -q dist-upgrade -y \
     && apt-get -q install -y \
-      libjemalloc2 \
-      ca-certificates \
-      tzdata \
-# If your app or its dependencies import FoundationNetworking, also install `libcurl4`.
-      # libcurl4 \
-# If your app or its dependencies import FoundationXML, also install `libxml2`.
-      # libxml2 \
+    libjemalloc2 \
+    ca-certificates \
+    tzdata \
+    # If your app or its dependencies import FoundationNetworking, also install `libcurl4`.
+    # libcurl4 \
+    # If your app or its dependencies import FoundationXML, also install `libxml2`.
+    # libxml2 \
     && rm -r /var/lib/apt/lists/*
 
 # Create a hummingbird user and group with /app as its home directory
@@ -80,6 +80,12 @@ USER hummingbird:hummingbird
 
 # Let Docker bind to port 8080
 EXPOSE 8080
+
+ENV DB_HOST=host.docker.internal
+ENV DB_PORT=5432
+ENV DB_USERNAME=todos_user
+ENV DB_PASSWORD=todos_password
+ENV DB_NAME=hummingbird_todos
 
 # Start the Hummingbird service when the image is run, default to listening on 8080 in production environment
 ENTRYPOINT ["./App"]
