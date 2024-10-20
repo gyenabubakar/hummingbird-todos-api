@@ -31,12 +31,19 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
   let router: Router<AppRequestContext>
 
   if !arguments.inMemoryTesting {
+    let dbHost = environment.get("DB_HOST") ?? "localhost"
+    let dbPort = Int(environment.get("DB_PORT") ?? "5432") ?? 5432
+    let dbUsername = environment.get("DB_USERNAME") ?? "todos_user"
+    let dbPassword = environment.get("DB_PASSWORD") ?? "todos_password"
+    let dbName = environment.get("DB_NAME") ?? "hummingbird_todos"
+
     let client = PostgresClient(
       configuration: .init(
-        host: "localhost",
-        username: "todos_user",
-        password: "todos_password",
-        database: "hummingbird_todos",
+        host: dbHost,
+        port: dbPort,
+        username: dbUsername,
+        password: dbPassword,
+        database: dbName,
         tls: .disable
       ),
       backgroundLogger: logger
