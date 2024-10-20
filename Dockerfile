@@ -86,6 +86,7 @@ ENV DB_PORT=5432
 ENV DB_USERNAME=todos_user
 ENV DB_PASSWORD=todos_password
 ENV DB_NAME=hummingbird_todos
+ENV BASE_URL=http://localhost:8080
 
 # Start the Hummingbird service when the image is run, default to listening on 8080 in production environment
 ENTRYPOINT ["./App"]

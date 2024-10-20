@@ -25,11 +25,14 @@ struct TodoController<Repository: TodoRepository> {
   }
 
   @Sendable func create(request: Request, context: some RequestContext) async throws -> EditedResponse<Todo> {
+    let environment = Environment()
+    let baseURL = environment.get("BASE_URL") ?? "http://localhost:8080"
+
     let body = try await request.decode(as: CreateTodoDTO.self, context: context)
     let todo = try await self.repository.create(
       title: body.title,
       order: body.order,
-      urlPrefix: "http://localhost:8080/todos/"
+      urlPrefix: "\(baseURL)/todos/"
     )
     return EditedResponse(status: .created, response: todo)
   }

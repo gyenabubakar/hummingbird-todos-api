@@ -44,7 +44,7 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
         username: dbUsername,
         password: dbPassword,
         database: dbName,
-        tls: .disable
+        tls: .require(.clientDefault)
       ),
       backgroundLogger: logger
     )
