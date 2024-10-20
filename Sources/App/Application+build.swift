@@ -23,8 +23,7 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
 
   let logger = {
     var logger = Logger(label: "HummingbirdTodos")
-    logger.logLevel =
-      arguments.logLevel ?? environment.get("LOG_LEVEL").flatMap { Logger.Level(rawValue: $0) } ?? .info
+    logger.logLevel = arguments.logLevel ?? environment.get("LOG_LEVEL").flatMap { Logger.Level(rawValue: $0) } ?? .info
     return logger
   }()
 
@@ -63,15 +62,7 @@ public func buildApplication(_ arguments: some AppArguments) async throws -> som
   if let postgresRepository {
     app.addServices(postgresRepository.client)
     app.beforeServerStarts {
-      do {
-        try await postgresRepository.createTable()
-      } catch let error {
-        print()
-        print()
-        print(">>> Something went wrong:\n", error)
-        print()
-        print()
-      }
+      try await postgresRepository.createTable()
     }
   }
 

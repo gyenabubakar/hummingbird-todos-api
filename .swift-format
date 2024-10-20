@@ -7,5 +7,6 @@
   "maximumBlankLines": 1,
   "respectsExistingLineBreaks": true,
   "lineBreakBeforeControlFlowKeywords": false,
-  "lineBreakBeforeEachArgument": true
+  "lineBreakBeforeEachArgument": true,
+  "indentSwitchCaseLabels": true
 }

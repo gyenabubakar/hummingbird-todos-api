@@ -23,6 +23,14 @@ struct Todo {
     self.order = order
     self.completed = false
   }
+
+  init(id: UUID, title: String, url: String, order: Int?, completed: Bool) {
+    self.id = id
+    self.title = title
+    self.url = url
+    self.order = order
+    self.completed = completed
+  }
 }
 
 extension Todo: ResponseEncodable, Decodable, Equatable {}
